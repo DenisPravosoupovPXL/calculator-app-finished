@@ -1,10 +1,10 @@
-name: Dependencies Example
+name: Build Example
 
 on:
   workflow_dispatch:
 
 jobs:
-  deps:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,8 +16,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Verify files and node
+      - name: Install dependencies
+        run: npm install
+
+      - name: Bundle project into zip
         run: |
-          node -v
-          npm -v
-          ls -alhR
+          mkdir build
+          zip -r build/app.zip . -x "*.git*"
